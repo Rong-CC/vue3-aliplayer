@@ -1,24 +1,8 @@
-# aliplayer
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<!--
+ * @Description: 
+ * @Author: rongcheng
+ * @@后台人员: xxx
+ * @Date: 2021-06-11 16:53:18
+ * @LastEditors: rongcheng
+ * @LastEditTime: 2021-06-11 17:18:40
+-->
