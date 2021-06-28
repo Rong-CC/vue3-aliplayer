@@ -4,7 +4,7 @@
  * @Author: xx
  * @@后台人员: xxx
  * @Date: 2021-06-11 16:19:13
- * @LastEditTime: 2021-06-24 15:56:29
+ * @LastEditTime: 2021-06-28 16:57:16
 -->
 
 <template>
@@ -98,6 +98,7 @@ export default {
   props: {
     id: {
       type: String,
+      required: true,
       default: `player-${Math.random()
         .toString(36)
         .substr(2)
@@ -106,6 +107,14 @@ export default {
     source: {
       type: String,
       default: '//player.alicdn.com/video/editor.mp4'
+    },
+    width: {
+      type: String,
+      default: '300px'
+    },
+    height: {
+      type: String,
+      default: '280px'
     },
     options: {
       type: Object,
@@ -116,8 +125,6 @@ export default {
             .substr(2)
             .toLocaleUpperCase()}`,
           source: '//player.alicdn.com/video/editor.mp4',
-          width: '100%',
-          height: '100%',
           // cover: 'https://img.alicdn.com/tps/TB1EXIhOFXXXXcIaXXXXXXXXXXX-760-340.jpg',
           autoplay: false,
           isLive: false,
@@ -229,6 +236,8 @@ export default {
     }
 
     const initPlayer = () => {
+
+      console.log(hasUsableSWF(),'223');
       console.log(window.Aliplayer, '------------window.Aliplayer')
       if (player.value === null) {
         const options = props.options
@@ -237,6 +246,9 @@ export default {
             state.config[key] = options[key]
           }
         }
+      
+        props.width && (state.config.width = props.width)
+        props.height && (state.config.height = props.height)
         if (props.source) {
           state.config.source = props.source // 播放源
         }
@@ -245,6 +257,17 @@ export default {
       } else {
         player.value && player.value.replay() // 销毁后重播
       }
+    }
+    const hasUsableSWF = () => {
+      var swf
+      if (typeof window.ActiveXObject != 'undefined') {
+        // eslint-disable-next-line no-undef
+        swf = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+      } else {
+        swf = navigator.plugins['Shockwave Flash']
+      }
+      return swf
+      // return swf ? true : false
     }
     const init = () => {
       const linkID = 'aliplayer-min-css'
@@ -267,6 +290,7 @@ export default {
         scriptTag.id = scriptID
         scriptTag.src = props.scriptSrc
         html[0].appendChild(scriptTag)
+        console.log(hasUsableSWF(),'falsh');
         // 兼容单页加载和硬加载
         scriptTag.addEventListener('load', () => {
           initPlayer()
@@ -284,8 +308,7 @@ export default {
      * @return player
      */
     const loadByUrl = (url, time) => {
-      // console.log(`直接播放视频url${url}，time为${time}。`);
-      this.player && this.player.loadByUrl(url, time)
+      player.value && player.value.loadByUrl(url, time)
     }
     watch(
       () => state.config.source,
@@ -305,6 +328,7 @@ export default {
         })
     })
     onMounted(() => {
+      console.log(hasUsableSWF(),'hasUsableSWF');
       if (window.Aliplayer === undefined) {
         init()
       } else {
@@ -323,3 +347,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.player-btns {
+  overflow: hidden;
+}
+</style>

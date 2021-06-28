@@ -4,25 +4,35 @@
  * @@后台人员: xxx
  * @Date: 2021-06-11 17:26:59
  * @LastEditors: rongcheng
- * @LastEditTime: 2021-06-24 16:16:36
+ * @LastEditTime: 2021-06-28 16:03:59
  */
 const path = require('path')
-
+// const { VueLoaderPlugin } = require("vue-loader");
+// const { VueLoaderPlugin } = require('vue-loader')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
+
 module.exports = {
-  pages:{
-    index:{
-      entry: './src/index.js',
+  pages: {
+    index: {
+      entry: './src/main.ts',
       template: 'public/index.html',
       filename: 'index.html',
-    }
+    },
+    indexs: {
+      entry: './src/index.js',
+      template: 'public/video.html',
+      filename: 'video.html',
+    },
   },
   runtimeCompiler: true, //修改入口文件
   // outputDir: 'dist',
   configureWebpack: {
-    externals: 'hls.js',
+    // module: {
+    //   rules: [{ test: /\.vue$/, loader: 'vue-loader' }]
+    // },
+    // plugins: [new VueLoaderPlugin()],
     resolve: {
       alias: {
         '@': resolve('src'),
@@ -31,19 +41,14 @@ module.exports = {
       },
     },
   },
-  // output: {
-  //   path: resolve('./dist'),
-  //   publicPath: '/dist/',
-  //   filename: 'c-aliplayer-min.js',    //build后生成的文件
-  //   libraryTarget:'umd',
-  //   umdNamedDefine:true
-  // }
 }
-
 
 const example = {
   // 部署应用时的基本 URL
-  baseUrl: process.env.NODE_ENV === 'production' ? '192.168.60.110:8080' : '192.168.60.110:8080',
+  baseUrl:
+    process.env.NODE_ENV === 'production'
+      ? '192.168.60.110:8080'
+      : '192.168.60.110:8080',
   // build时构建文件的目录 构建时传入 --no-clean 可关闭该行为
   outputDir: 'dist',
   // build时放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录
@@ -56,20 +61,20 @@ const example = {
   pages: {
     index: {
       // page 的入口
-      entry: 'src/index/main.js',
+      entry: 'src/index/main.ts',
       // 模板来源
       template: 'public/index.html',
       // 在 dist/index.html 的输出
       filename: 'index.html',
-      // 当使用 title 选项时，template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
+      // 当n使用 title 选项时，template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
       title: 'Index Page',
       // 在这个页面中包含的块，默认情况下会包含
       // 提取出来的通用 chunk 和 vendor chunk。
-      chunks: ['chunk-vendors', 'chunk-common', 'index']
+      chunks: ['chunk-vendors', 'chunk-common', 'index'],
     },
     // 当使用只有入口的字符串格式时，模板会被推导为 `public/subpage.html`，并且如果找不到的话，就回退到 `public/index.html`。
     // 输出文件名会被推导为 `subpage.html`。
-    subpage: 'src/subpage/main.js'
+    subpage: 'src/subpage/main.js',
   },
   // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码 (在生产构建时禁用 eslint-loader)
   lintOnSave: process.env.NODE_ENV !== 'production',
@@ -88,7 +93,7 @@ const example = {
   // 如果你需要基于环境有条件地配置行为，或者想要直接修改配置，那就换成一个函数 (该函数会在环境变量被设置之后懒执行)。该方法的第一个参数会收到已经解析好的配置。在函数内，你可以直接修改配置，或者返回一个将会被合并的对象
   configureWebpack: {},
   // 对内部的 webpack 配置（比如修改、增加Loader选项）(链式操作)
-  chainWebpack: () => { },
+  chainWebpack: () => {},
   // css的处理
   css: {
     // 当为true时，css文件名可省略 module 默认为 false
@@ -99,7 +104,7 @@ const example = {
     // 是否为 CSS 开启 source map。设置为 true 之后可能会影响构建的性能
     sourceMap: false,
     //向 CSS 相关的 loader 传递选项(支持 css-loader postcss-loader sass-loader less-loader stylus-loader)
-    loaderOptions: { css: {}, less: {} }
+    loaderOptions: { css: {}, less: {} },
   },
   // 所有 webpack-dev-server 的选项都支持
   devServer: {},
@@ -108,6 +113,6 @@ const example = {
   // 向 PWA 插件传递选项
   pwa: {},
   // 可以用来传递任何第三方插件选项
-  pluginOptions: {}
+  pluginOptions: {},
 }
-console.log(example);
+console.log(example)
