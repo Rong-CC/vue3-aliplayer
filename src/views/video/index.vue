@@ -4,12 +4,12 @@
  * @@后台人员: xxx
  * @Date: 2021-06-25 09:40:07
  * @LastEditors: rongcheng
- * @LastEditTime: 2021-06-28 16:10:20
+ * @LastEditTime: 2021-07-05 10:47:22
 -->
 
 
 <template>
-  <div class="box">
+  <div>
       <H3>RTMP</H3>
 
     <div class="video-warp">
@@ -23,9 +23,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import alplayer from '@/components/index.vue'
-
 export default {
   components: {
     alplayer
